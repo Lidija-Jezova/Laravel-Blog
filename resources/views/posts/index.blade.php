@@ -5,33 +5,38 @@
         <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <div class="card">
-    
-                    <div class="card-body">
+                <div class="card">  
+                <div class="card-body">
 
-                        <h4 class="card-title">All Posts</h4>
+                    <h3 class="card-title">All Posts</h3>
 
-                        @foreach ($posts as $post)
-                            <div class="card">
-                                <h5 class="card-header">{{ $post->title }}</h5>
-                                <div class="card-body">
-                                  <p class="card-text">{{ $post->body }}</p>
-                                  <a href="/posts/{{ $post->id }}/edit" class="btn btn-primary">Edit Post</a>
+                    <div class="card">                          
+                        <ul class="list-group list-group-flush">
+                            @foreach ($posts as $post)        
 
-                                  <form method="post" action="/posts/{{ $post->id }}">
-                                    <!-- here the '1' is the id of the post which you want to delete -->
+                            <li class="list-group-item">
+
+                            <h4 class="card-title">{{ $post->title }}</h4>
+                            <p class="card-text">{{ $post->body }}</p>
+                            <p class="card-text text-muted text-right"><small>{{ $post->created_at }}</small></p>
+
+                            <a href="/posts/{{ $post->id }}/edit" class="btn btn-primary float-left">Edit Post</a>
+
+                            <form method="post" action="/posts/{{ $post->id }}">
+                            
+                                {{ csrf_field() }}
+                                {{ method_field('DELETE') }}
+                            
+                                <button type="submit" class="btn btn-danger float-right">Delete</button>
+                            </form>
+
+                            </li>
                                 
-                                    {{ csrf_field() }}
-                                    {{ method_field('DELETE') }}
-                                
-                                    <button type="submit" class="btn btn-danger">Delete</button>
-                                </form>
-                                </div>
-                              </div>
-                        @endforeach
-
+                            @endforeach
+                        </ul>
                     </div>
-    
+
+                </div>
                 </div>
             </div>
         </div>
