@@ -23,7 +23,7 @@ class UserSeeder extends Seeder
         $user1 = new User();
         $user1->name = 'Lidija';
         $user1->email = 'lilovenar@gmail.com';
-        $user1->password = '123123123';
+        $user1->password = bcrypt('123123123');
         $user1->save();
         $user1->roles()->attach($regular_user);
 
@@ -33,7 +33,7 @@ class UserSeeder extends Seeder
         $user2 = new User();
         $user2->name = 'admin';
         $user2->email = 'admin@gmail.com';
-        $user2->password = '123123123';
+        $user2->password = bcrypt('123123123');
         $user2->save();
         $user2->roles()->attach($admin);
     }

@@ -22,13 +22,14 @@
 
                             <a href="/posts/{{ $post->id }}/edit" class="btn btn-primary float-left">Edit Post</a>
 
-                            <form method="post" action="/posts/{{ $post->id }}">
+                            @can('delete', Post::class)
+                                <form method="post" action="/posts/{{ $post->id }}">                           
+                                    {{ csrf_field() }}
+                                    {{ method_field('DELETE') }}                    
+                                    <button type="submit" class="btn btn-danger float-right">Delete</button>
+                                </form>  
+                            @endcan
                             
-                                {{ csrf_field() }}
-                                {{ method_field('DELETE') }}
-                            
-                                <button type="submit" class="btn btn-danger float-right">Delete</button>
-                            </form>
 
                             </li>
                                 

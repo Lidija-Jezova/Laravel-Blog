@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use App\User;
+use Illuminate\Support\Facades\Auth;
 use Faker\Provider\ar_JO\Company;
 use Illuminate\Http\Request;
 
@@ -15,6 +17,8 @@ class PostController extends Controller
      */
     public function index()
     {
+        $this->authorize('viewAny', Post::class);
+
         $posts = Post::latest()->paginate(5);
 
         return view('posts.index', ['posts' => $posts]);
@@ -27,6 +31,8 @@ class PostController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Post::class);
+
         return view('posts.create');
     }
 
@@ -43,9 +49,12 @@ class PostController extends Controller
             'body'=>'required'
         ]);
 
+        $this->authorize('create', Post::class);
+
         $post = new Post([
             'title' => $request->get('title'),
-            'body' => $request->get('body')
+            'body' => $request->get('body'),
+            'user_id' => Auth::user()->id
         ]);
 
         $post->save();
@@ -60,6 +69,8 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
+        $this->authorize('view', $post);
+
         return view('posts.show', compact('post'));
     }
 
@@ -71,6 +82,8 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
+        $this->authorize('update', $post);
+        
         return view('posts.edit', compact('post'));
     }
 
@@ -87,6 +100,8 @@ class PostController extends Controller
             'title'=>'required',
             'body'=>'required'
         ]);
+
+        $this->authorize('update', $post);
 
       //  $post = Post::find($post);
         
@@ -106,6 +121,8 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        $this->authorize('delete', $post);
+
         $post->delete();
 
         return redirect('/posts');

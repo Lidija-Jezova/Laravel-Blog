@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     protected $fillable = [
-        'title', 'body'
+        'title', 'body', 'user_id'
     ];
 
-    public function users()
+    public function user()
     {
-        return $this->belongsToMany(User::class, 'users_posts');
+        return $this->belongsTo(User::class, 'users_posts');
     }
 }

@@ -38,6 +38,15 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function hasRoles($roles) {
+        foreach ($roles as $role) {
+            if ($this->roles->contains('name', $role)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public function roles()
     {
         return $this->belongsToMany(Role::class, 'users_roles');
@@ -45,6 +54,7 @@ class User extends Authenticatable
 
     public function posts()
     {
-        return $this->belongsToMany(Post::class, 'users_posts');
+        return $this->hasMany(Post::class, 'users_posts');
     }
+  
 }
