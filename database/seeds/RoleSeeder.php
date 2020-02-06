@@ -22,6 +22,11 @@ class RoleSeeder extends Seeder
         $regural_user->description = 'Regular User.';
         $regural_user->save();
 
+        $moderator = new Role();
+        $moderator->name = 'moderator';
+        $moderator->description = 'Moderator.';
+        $moderator->save();
+
         $admin = new Role();
         $admin->name = 'administrator';
         $admin->description = 'Administrator.';

@@ -15,6 +15,7 @@ class UserSeeder extends Seeder
     public function run()
     {
         $regular_user = Role::where('name', 'regular_user')->first();
+        $moderator = Role::where('name', 'moderator')->first();
         $admin = Role::where('name', 'administrator')->first();
 
         DB::statement("SET foreign_key_checks = 0");
@@ -27,14 +28,20 @@ class UserSeeder extends Seeder
         $user1->save();
         $user1->roles()->attach($regular_user);
 
-       // User::firstOrCreate([
-
-
         $user2 = new User();
-        $user2->name = 'admin';
-        $user2->email = 'admin@gmail.com';
+        $user2->name = 'moderator';
+        $user2->email = 'moderator@gmail.com';
         $user2->password = bcrypt('123123123');
         $user2->save();
-        $user2->roles()->attach($admin);
+        $user2->roles()->attach($moderator);
+
+        $user3 = new User();
+        $user3->name = 'admin';
+        $user3->email = 'admin@gmail.com';
+        $user3->password = bcrypt('123123123');
+        $user3->save();
+        $user3->roles()->attach($admin);    
+        
+        // User::firstOrCreate([
     }
 }

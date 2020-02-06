@@ -18,7 +18,7 @@ class PostPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->hasRoles(['administrator', 'regular_user', 'moderator']);
+        return $user->hasRoles(['administrator', 'moderator', 'regular_user']);
     }
 
     /**
@@ -30,7 +30,10 @@ class PostPolicy
      */
     public function view(User $user, Post $post)
     {
-        return $user->hasRoles(['administrator', 'regular_user', 'moderator']);   
+        if($user->hasRoles(['administrator', 'moderator']) || $user->id === $post->user_id)
+        {
+            return true;
+        }  
     }
 
     /**
@@ -41,7 +44,7 @@ class PostPolicy
      */
     public function create(User $user)
     {
-        return $user->hasRoles(['administrator', 'regular_user']);
+        return $user->hasRoles(['administrator', 'moderator', 'regular_user']);
     }
 
     /**
@@ -68,7 +71,7 @@ class PostPolicy
      */
     public function delete(User $user, Post $post)
     {
-        return $user->hasRoles(['administrator']);
+        return $user->hasRoles(['administrator', 'moderator']);
     }
 
     /**
