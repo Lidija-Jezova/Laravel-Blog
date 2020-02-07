@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Post\StorePost;
+use App\Http\Requests\Post\UpdatePost;
 use App\Post;
 use App\User;
 use Illuminate\Support\Facades\Auth;
@@ -42,22 +44,12 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StorePost $request)
     {
-        $request->validate([
-            'title'=>'required',
-            'body'=>'required'
-        ]);
+        $validated = $request->validated();
+        $validated['user_id'] = Auth::user()->id;
+        Post::create($validated);
 
-        $this->authorize('create', Post::class);
-
-        $post = new Post([
-            'title' => $request->get('title'),
-            'body' => $request->get('body'),
-            'user_id' => Auth::user()->id
-        ]);
-
-        $post->save();
         return redirect('/posts')->with('success', 'Contact saved!');
     }
 
@@ -94,17 +86,10 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(UpdatePost $request, Post $post)
     {
-        $request->validate([
-            'title'=>'required',
-            'body'=>'required'
-        ]);
-
-        $this->authorize('update', $post);
-
-      //  $post = Post::find($post);
-        
+        //$this->authorize('update', $post);
+        // $post = fill($request->all());
         $post->title = $request->get('title');
         $post->body = $request->get('body');
 
