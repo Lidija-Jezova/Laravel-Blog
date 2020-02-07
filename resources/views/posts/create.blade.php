@@ -31,7 +31,7 @@
                     
                                 <div class="control">
                                 <textarea class="textarea form-control {{ $errors->has('body') ? 'is-invalid' : '' }}" name="body" id="body"></textarea>
-                                @if ($errors->has('body'))
+                                    @if ($errors->has('body'))
                                     <div class="invalid-feedback">
                                     <p>{{ $errors->first('body') }}</p>
                                     </div> 

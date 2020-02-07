@@ -18,7 +18,12 @@
                             <label class="label" for="title">Title</label>
                 
                             <div class="control">
-                                <input class="input" type="text"  name="title" id="title" value="{{ $post->title }}">
+                                <input class="input" type="text"  name="title" id="title" value="{{ old('title', $post->title) }}">
+                                @if ($errors->has('title'))
+                                <div class="text-danger">
+                                <p>{{ $errors->first('title') }}</p>
+                                </div> 
+                                @endif 
                             </div>
                         </div>
                 
@@ -26,7 +31,12 @@
                             <label class="label" for="body">Body</label>
                 
                             <div class="control">
-                                <textarea class="textarea" name="body" id="body">{{ $post->body }}</textarea>
+                                <textarea class="textarea" name="body" id="body">{{ old('body', $post->body) }}</textarea>
+                                    @if ($errors->has('body'))
+                                    <div class="text-danger">
+                                    <p>{{ $errors->first('body') }}</p>
+                                    </div> 
+                                    @endif
                             </div>
                         </div>
                         <div class="field is-grouped">

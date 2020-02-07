@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use App\Post;
 
-class UpdatePost extends FormRequest
+class UpdatePost extends StorePost
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,12 +26,11 @@ class UpdatePost extends FormRequest
      */
     public function rules()
     {
-        return [
+        return array_merge(parent::rules(), [
             'title' => [
                 'required',
                 Rule::unique('posts')->ignore($this->route('post'))
             ]
-        ];
-
+        ]);
     }
 }
