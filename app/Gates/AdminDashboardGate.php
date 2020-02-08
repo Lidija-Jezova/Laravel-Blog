@@ -4,9 +4,9 @@ namespace App\Gates;
 
 use App\User;
 
-class DashboardGate
+class AdminDashboardGate
 {
-    public function attachRole(User $user, User $model)
+    public function attachRole(User $user)
     {
        return $user->hasRoles(['administrator']); 
     }

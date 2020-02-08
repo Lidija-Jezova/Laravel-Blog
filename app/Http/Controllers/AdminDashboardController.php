@@ -12,8 +12,8 @@ class AdminDashboardController extends Controller
     public function attachRole(Request $request, User $user)
     {
         $role = $request->input('roles');
-        // if (Gate::allows('attach-role')) {
-        if (true) {
+        if (Gate::allows('attach-role')) {
+        //if (true) {
             $user->roles()->attach($role);
         }
     }

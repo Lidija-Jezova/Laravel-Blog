@@ -14,7 +14,7 @@
                         
                         @csrf
                         @foreach ($roles as $role)
-                            <input type="radio" name="roles[]" value="{{ $role->id }}">{{ $role }}<br>
+                            <input type="radio" name="roles[]" value="{{ $role->id }}">{{ $role->description }}<br>
                         @endforeach
                         <div class="control">
                             <button class="button is-link" type="submit">Submit</button>
