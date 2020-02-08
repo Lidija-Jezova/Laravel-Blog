@@ -41,7 +41,7 @@ class UserPolicy
      */
     public function create(User $user)
     {
-        return $user->hasRoles(['administrator']);
+        return false;
     }
 
     /**
@@ -54,6 +54,7 @@ class UserPolicy
     public function update(User $user, User $model)
     {
         return $user->hasRoles(['administrator']);
+
     }
 
     /**
@@ -90,5 +91,15 @@ class UserPolicy
     public function forceDelete(User $user, User $model)
     {
         //
+    }
+
+    public function attachRole(User $user, User $model)
+    {
+        return $user->hasRoles(['administrator']);
+    }
+
+    public function detachRole(User $user, User $model)
+    {
+        return $user->hasRoles(['administrator']);
     }
 }

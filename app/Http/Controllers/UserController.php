@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
@@ -17,6 +18,10 @@ class UserController extends Controller
     public function index()
     {
         $this->authorize('viewAny', User::class);
+
+        $users = User::latest()->paginate(10);
+
+        return view('users.dashboard', ['users' => $users]);
     }
 
     /**
@@ -26,7 +31,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        $this->authorize('create', User::class);
     }
 
     /**
@@ -37,7 +42,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->authorize('create', User::class);
     }
 
     /**
@@ -48,7 +53,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
+        $this->authorize('view', $user);
     }
 
     /**
@@ -59,7 +64,14 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        $this->authorize('update', $user);
+
+        $regular_user = Role::where('name', 'regular_user')->first();
+        $moderator = Role::where('name', 'moderator')->first();
+        $admin = Role::where('name', 'administrator')->first();
+
+        $roles = [$admin, $moderator, $regular_user];
+        return view('users.edit', ['roles' => $roles, 'user' => $user]);
     }
 
     /**
@@ -71,7 +83,7 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $this->authorize('update', $user);
     }
 
     /**
@@ -82,7 +94,7 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        
+        $this->authorize('delete', $user);
     }
 
     public function profile()
@@ -105,7 +117,6 @@ class UserController extends Controller
             $user->save();
         }
 
-        return view('profile', ['user' => Auth::user()]);
-    
+        return view('profile', ['user' => Auth::user()]);   
     }
 }

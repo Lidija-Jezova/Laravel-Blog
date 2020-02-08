@@ -31,11 +31,16 @@ Route::get('/posts/{post}/edit', 'PostController@edit');
 Route::put('/posts/{post}', 'PostController@update')->middleware('can:update, post');
 Route::delete('/posts/{post}', 'PostController@destroy');
 
-Route::get('/users', 'PostController@index');
-Route::get('/posts/create', 'PostController@create');
-Route::post('/posts', 'PostController@store');
-Route::get('/posts/{post}', 'PostController@show');
-Route::get('/posts/{post}/edit', 'PostController@edit');
-Route::put('/posts/{post}', 'PostController@update');
-Route::delete('/posts/{post}', 'PostController@destroy');
+Route::get('/users', 'UserController@index')->name('users.dashboard');
+
+Route::get('/users/create', 'UserController@create');
+Route::post('/users', 'UserController@store');
+
+Route::get('/users/{user}', 'UserController@show')->middleware('can:view, user');
+Route::get('/users/{user}/edit', 'UserController@edit');
+Route::post('/users/{user}', 'AdminDashboardController@attachRole')->name('attach.role');
+Route::delete('/users/{user}', 'UserController@destroy');
+
+
+
 
