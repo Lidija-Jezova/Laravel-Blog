@@ -11,7 +11,7 @@ class AdminDashboardGate
        return $user->hasRoles(['administrator']); 
     }
 
-    public function detachRole(User $user, User $model)
+    public function detachRole(User $user)
     {
         return $user->hasRoles(['administrator']); 
     }
