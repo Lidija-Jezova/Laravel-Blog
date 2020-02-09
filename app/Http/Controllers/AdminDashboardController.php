@@ -13,15 +13,17 @@ class AdminDashboardController extends Controller
     {
         $role = $request->input('roles');
         if (Gate::allows('attach-role')) {
-        //if (true) {
             $user->roles()->attach($role);
+            return redirect()->route('users.dashboard');
         }
     }
 
-    public function detachRole(User $user)
+    public function detachRole(Request $request, User $user)
     {
+        $role = $request->input('roles');
         if (Gate::allows('detach-role')) {
-            # code...
+            $user->roles()->detach($role);
+            return redirect('users.dashboard');
         }
     }
 }
