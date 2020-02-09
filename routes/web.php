@@ -39,6 +39,7 @@ Route::post('/users', 'UserController@store');
 Route::get('/users/{user}', 'UserController@show')->middleware('can:view, user');
 Route::get('/users/{user}/edit', 'UserController@edit');
 Route::post('/users/{user}/attachRole', 'AdminDashboardController@attachRole')->name('attach.role');
+Route::post('/users/{user}/detachRole', 'AdminDashboardController@detachRole')->name('detach.role');
 Route::delete('/users/{user}', 'UserController@destroy');
 
 

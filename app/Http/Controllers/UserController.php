@@ -70,8 +70,8 @@ class UserController extends Controller
         $moderator = Role::where('name', 'moderator')->first();
         $admin = Role::where('name', 'administrator')->first();
 
-        $roles = [$admin, $moderator, $regular_user];
-        return view('users.edit', ['roles' => $roles, 'user' => $user]);
+        $allRoles = [$admin, $moderator, $regular_user];
+        return view('users.edit', ['allRoles' => $allRoles, 'user' => $user]);
     }
 
     /**
