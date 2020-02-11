@@ -11,7 +11,10 @@
                   <p class="card-text">{{ $post->body }}</p>
                   <a href="/posts/{{ $post->id }}/edit" class="btn btn-primary">Edit Post</a>
                 </div>
-              </div>
+                <div class="container">
+                  @comments(['model' => $post])
+                </div>              
+            </div>
         </div>
     </div>
 </div>
