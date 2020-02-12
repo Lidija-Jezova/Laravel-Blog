@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravelista\Comments\Commenter;
 use App\Role;
+use App\Image;
 
 class User extends Authenticatable
 {
@@ -18,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'avatar'
+        'name', 'email', 'password'
     ];
 
     /**
@@ -48,6 +49,14 @@ class User extends Authenticatable
         return false;
     }
 
+    public function defaultImage()
+    {
+        if($this->image->name == 'user.jpg')
+        {
+            return true;
+        }
+    }
+
     public function roles()
     {
         return $this->belongsToMany(Role::class, 'users_roles');
@@ -58,4 +67,8 @@ class User extends Authenticatable
         return $this->hasMany(Post::class, 'users_posts');
     }
   
+    public function image()
+    {
+        return $this->morphOne(Image::class, 'imageable');
+    }
 }

@@ -17,4 +17,9 @@ class Post extends Model
     {
         return $this->belongsTo(User::class, 'users_posts');
     }
+
+    public function image()
+    {
+        return $this->morphOne(Image::class, 'imageable');
+    }
 }

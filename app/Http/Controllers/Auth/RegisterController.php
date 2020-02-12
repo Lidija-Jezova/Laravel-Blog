@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\User;
 use App\Role;
+use App\Image;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -67,6 +68,7 @@ class RegisterController extends Controller
     {
 
         $role = Role::where('name', 'regular_user')->first();
+        //$defaultAvatar = Image::create(['name' => 'user.jpg']);
 
         $user = User::create([
             'name' => $data['name'],
@@ -75,6 +77,8 @@ class RegisterController extends Controller
         ]);
 
         $user->roles()->attach($role);
+        //$user->image()->save($defaultAvatar);
+        $user->image()->create(['name' => 'user.jpg']);
 
         return $user;
     }

@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\Role;
 use App\User;
+use App\Image;
 use Illuminate\Support\Facades\DB;
 
 class UserSeeder extends Seeder
@@ -27,6 +28,7 @@ class UserSeeder extends Seeder
         $user1->password = bcrypt('123123123');
         $user1->save();
         $user1->roles()->attach($regular_user);
+        $user1->image()->create(['name' => 'user.jpg']);
 
         $user2 = new User();
         $user2->name = 'moderator';
@@ -34,13 +36,15 @@ class UserSeeder extends Seeder
         $user2->password = bcrypt('123123123');
         $user2->save();
         $user2->roles()->attach($moderator);
+        $user2->image()->create(['name' => 'user.jpg']);
 
         $user3 = new User();
         $user3->name = 'admin';
         $user3->email = 'admin@gmail.com';
         $user3->password = bcrypt('123123123');
         $user3->save();
-        $user3->roles()->attach($admin);    
+        $user3->roles()->attach($admin);
+        $user3->image()->create(['name' => 'user.jpg']);    
         
         // User::firstOrCreate([
     }

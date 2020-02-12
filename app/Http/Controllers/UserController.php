@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Role;
+use App\Image as Avatar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
@@ -106,17 +107,18 @@ class UserController extends Controller
     {
         // Handle the user upload of avatar
 
-        if($request->hasFile('avatar'))
+        if($request->hasFile('name'))
         {
-            $avatar = $request->file('avatar');
+            $avatar = $request->file('name');
             $filename = time() . '.' . $avatar->getClientOriginalExtension();
             Image::make($avatar)->resize(300, 300)->save( public_path('/uploads/avatars/') . $filename );
 
             $user = Auth::user();
-            $user->avatar = $filename;
-            $user->save();
+            $image = new Avatar();
+            $image->name = $filename;
+            $user->image()->save($image);
         }
 
-        return view('profile', ['user' => Auth::user()]);   
+        return view('profile', ['user' => $user]);   
     }
 }
