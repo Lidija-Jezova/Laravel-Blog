@@ -22,8 +22,17 @@ class PostController extends Controller
         $this->authorize('viewAny', Post::class);
 
         $posts = Post::latest()->paginate(5);
+        $postsAll = Post::all();
 
-        return view('posts.index', ['posts' => $posts]);
+        $allLikers = [];
+        foreach ($postsAll as $post) {
+            foreach ($post->likes as $like) {
+                $allLikers[] = $like->liker_id;
+            }
+        }
+        //dd($allLikers);
+
+        return view('posts.index', ['posts' => $posts, 'likers' => $allLikers]);
     }
 
     /**
@@ -50,7 +59,7 @@ class PostController extends Controller
         $validated['user_id'] = Auth::user()->id;
         Post::create($validated);
 
-        return redirect('/posts')->with('success', 'Contact saved!');
+        return redirect('/posts');
     }
 
     /**

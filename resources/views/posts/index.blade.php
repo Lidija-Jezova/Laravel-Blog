@@ -18,7 +18,9 @@
 
                             <h4 class="card-title">{{ $post->title }}</h4>
                             <p class="card-text">{{ $post->body }}</p>
+                            <p class="card-text" style="font-size: 20px;"><i class="far fa-heart" style="padding-right: 5px; color:{{ in_array(Auth::user()->id, $likers) ? 'red' : ''  }};"></i>{{ $post->likes()->count() }}</p>
                             <p class="card-text text-muted text-right"><small>{{ $post->created_at }}</small></p>
+                            
 
                             <a href="/posts/{{ $post->id }}/edit" class="btn btn-primary float-left">Edit Post</a>
 

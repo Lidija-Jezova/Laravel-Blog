@@ -6,7 +6,7 @@
 @else
   <li id="comment-{{ $comment->id }}" class="media">
 @endif
-    <img class="mr-3" src="/uploads/avatars/{{ $comment->commenter->avatar }}" alt="{{ $comment->commenter->name ?? $comment->guest_name }} Avatar" style="width:75px; height:75px; float:left; border-radius:50%; margin-right:25px">
+    <img class="mr-3" src="/uploads/avatars/{{ $comment->commenter->image->name }}" alt="{{ $comment->commenter->name ?? $comment->guest_name }} Avatar" style="width:75px; height:75px; float:left; border-radius:50%; margin-right:25px">
     <div class="media-body">
         <h5 class="mt-0 mb-1">{{ $comment->commenter->name ?? $comment->guest_name }} <small class="text-muted">- {{ $comment->created_at->diffForHumans() }}</small></h5>
         <div style="white-space: pre-wrap;">{!! $markdown->line($comment->comment) !!}</div>

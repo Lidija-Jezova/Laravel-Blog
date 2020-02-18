@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Like;
 use Illuminate\Database\Eloquent\Model;
 use Laravelista\Comments\Commentable;
 
@@ -21,5 +22,10 @@ class Post extends Model
     public function image()
     {
         return $this->morphOne(Image::class, 'imageable');
+    }
+
+    public function likes()
+    {
+        return $this->morphMany(Like::class, 'likeable');
     }
 }
