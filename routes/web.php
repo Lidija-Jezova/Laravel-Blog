@@ -23,7 +23,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/profile', 'UserController@profile')->name('profile');
 Route::post('/profile', 'UserController@update_avatar');
 
-Route::get('/posts', 'PostController@index');
+Route::get('/posts', 'PostController@index')->name("posts");
 Route::get('/posts/create', 'PostController@create');
 Route::post('/posts', 'PostController@store');
 Route::get('/posts/{post}', 'PostController@show');
@@ -42,6 +42,6 @@ Route::post('/users/{user}/attachRole', 'AdminDashboardController@attachRole')->
 Route::post('/users/{user}/detachRole', 'AdminDashboardController@detachRole')->name('detach.role');
 Route::delete('/users/{user}', 'UserController@destroy');
 
-
+Route::post('/posts/{post}/like', 'LikeController@like');
 
 

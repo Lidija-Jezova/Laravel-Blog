@@ -75,5 +75,14 @@ class User extends Authenticatable
     public function likes()
     {
         return $this->morphMany(Like::class, 'likeable');
+    } 
+
+    public function isLiker(Post $post)
+    {
+        foreach ($post->likes as $like) {
+            if ($like->liker_id == $this->id) {
+                return true;
+            }
+        }
     }
 }
