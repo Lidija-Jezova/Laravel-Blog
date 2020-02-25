@@ -11,21 +11,16 @@ class LikeController extends Controller
 {
     public function like(Post $post)
     {
-        $user_id = Auth::user()->id;
-
-        $allLikers = [];
-            foreach ($post->likes as $like) {
-                $allLikers[] = $like->liker_id;
-            }
-
-        if (!in_array($user_id, $allLikers)) {
+        $user = Auth::user();
+     
+        if (!$user->isLiker($post)) {
             $post->likes()->create([
-            'liker_id' => $user_id
+            'liker_id' => $user->id
         ]);       
             return redirect()->back();
         }
         else {
-            $post->likes()->where('liker_id', $user_id)->delete();
+            $post->likes()->where('liker_id', $user->id)->delete();
             return redirect()->back();
         }
     
